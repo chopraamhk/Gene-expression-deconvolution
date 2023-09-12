@@ -51,19 +51,21 @@ here, the code to make the file right
 ```
 
 How does the output_ref.txt looks like <tab delimited file>- 
+```
 Genes	VSMC_II	VSMC_I	VSMC_I	Endothelial_I
 RP11-34P13.3	0	0	0	0
 FAM138A	0	0	0	0
 OR4F5	0	0	0	0
 RP11-34P13.7	0	0	0	0
-
+```
 How does the .txt looks like <tab delimited file>- 
+```
 Genes	GTEX-111YS	GTEX-1122O	GTEX-1128S	GTEX-117XS
 DDX11L1	0	0	0	0
 WASH7P	3.652	3.402	7.733	3.057
 MIR6859-1	0	0	0	0
 MIR1302-2HG	0	0	0.0659	0
-
+```
 #Running cibersortx
 ```
 sudo docker run -v /home/mchopra/Documents/PhD-Year1/deconvolution/Deconvolution_results/results:/src/data -v /home/mchopra/Documents/PhD-Year1/deconvolution/Deconvolution_results/results:/src/outdir cibersortx/fractions --username m.chopra1@nuigalway.ie --token 32c3bd33e2bdbe49a89c001a948cf2e5 --single_cell TRUE --refsample output_ref.txt --mixture gtex_aorta.txt --perm 100
