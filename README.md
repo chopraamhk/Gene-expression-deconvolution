@@ -50,7 +50,7 @@ seurat_anndata@assays$RNA
 here, the code to make the file right
 ```
 
-How does the output_ref.txt looks like <tab delimited file>- 
+How does the output_ref.txt looks like - tab delimited file- 
 ```
 Genes	VSMC_II	VSMC_I	VSMC_I	Endothelial_I
 RP11-34P13.3	0	0	0	0
@@ -58,7 +58,7 @@ FAM138A	0	0	0	0
 OR4F5	0	0	0	0
 RP11-34P13.7	0	0	0	0
 ```
-How does the .txt looks like <tab delimited file>- 
+How does the .txt looks like tab delimited file- 
 ```
 Genes	GTEX-111YS	GTEX-1122O	GTEX-1128S	GTEX-117XS
 DDX11L1	0	0	0	0
