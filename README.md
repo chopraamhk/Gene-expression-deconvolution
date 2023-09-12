@@ -147,6 +147,11 @@ WASH7P	3.652	3.402	7.733	3.057
 MIR6859-1	0	0	0	0
 MIR1302-2HG	0	0	0.0659	0
 ```
+#Pull docker image 
+```
+docker pull cibersortx/fractions
+```
+
 #Running cibersortx
 ```
 sudo docker run -v /home/mchopra/Documents/PhD-Year1/deconvolution/Deconvolution_results/results:/src/data -v /home/mchopra/Documents/PhD-Year1/deconvolution/Deconvolution_results/results:/src/outdir cibersortx/fractions --username m.chopra1@nuigalway.ie --token 32c3bd33e2bdbe49a89c001a948cf2e5 --single_cell TRUE --refsample output_ref.txt --mixture gtex_aorta.txt --perm 100
