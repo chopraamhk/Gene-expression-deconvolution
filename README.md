@@ -42,12 +42,93 @@ str(seurat_anndata)
 #As it has two lists, we use RNA and saved it into variable called cts.
 ```
 
+Step3: See the data
 ```{r}
 seurat_anndata@assays$RNA
 ```  
 
 ```{r}
-here, the code to make the file right
+seurat_anndata@assays$RNA
+table(seurat_anndata$donor_id)
+table(seurat_anndata$biosample_id)
+```
+
+```{r}
+aoA_samples <- subset(seurat_anndata, subset =  biosample_id %in% c("Ao4A", "Ao8A", "Ao12A"))
+mtrx <- aoA_samples@assays$RNA@counts
+```
+
+```{r}
+colnames(mtrx) <- aoA_samples$cell_type_leiden
+```
+
+```{r}
+table(seurat_anndata$cell_type_leiden)
+```
+
+```{r}
+colnames(mtrx)
+```
+
+```{r}
+colnames(mtrx) <- gsub("00. ", "", colnames(mtrx))
+colnames(mtrx) <- gsub("03. ", "", colnames(mtrx))
+colnames(mtrx) <- gsub("04. ", "", colnames(mtrx))
+colnames(mtrx) <- gsub("05. ", "", colnames(mtrx))
+colnames(mtrx) <- gsub("01. ", "", colnames(mtrx))
+colnames(mtrx) <- gsub("02. ", "", colnames(mtrx))
+colnames(mtrx) <- gsub("09. ", "", colnames(mtrx))
+colnames(mtrx) <- gsub("08. ", "", colnames(mtrx))
+colnames(mtrx) <- gsub("06. ", "", colnames(mtrx))
+colnames(mtrx) <- gsub("10. ", "", colnames(mtrx))
+colnames(mtrx) <- gsub("13. ", "", colnames(mtrx))
+colnames(mtrx) <- gsub("07. ", "", colnames(mtrx))
+colnames(mtrx) <- gsub("11. ", "", colnames(mtrx))
+colnames(mtrx) <- gsub("12. ", "", colnames(mtrx))
+colnames(mtrx) <- gsub("13. ?", "unknown", colnames(mtrx))
+colnames(mtrx)
+```
+
+```{r}
+write.csv(mtrx, "mtrx.csv", quote = FALSE, sep = "\t", quote = FALSE)
+```
+
+```{r}
+output_ref <- read.csv("/home/mchopra/Documents/PhD-Year1/deconvolution/Deconvolution_results/Sc_reference/mtrx.csv", check.names = FALSE)
+```
+
+```{r}
+output_ref[1:5, 1:5]
+```
+
+```{r}
+colnames(output_ref) <- sub("\\.", "_", colnames(output_ref))
+colnames(output_ref) <- sub("\\..*", "", colnames(output_ref))
+colnames(output_ref)[1] <- "Genes"
+colnames(output_ref)
+colnames(output_ref) <- sub("Pericyte_\\d+$", "Pericyte", colnames(output_ref))
+colnames(output_ref) <- sub("Macrophage_\\d+$", "Macrophage", colnames(output_ref))
+colnames(output_ref) <- sub("Lymphocyte_\\d+$", "Lymphocyte", colnames(output_ref))
+colnames(output_ref) <- sub("Neuron_\\d+$", "Neuron", colnames(output_ref))
+colnames(output_ref) <- sub("Mesothelial_\\d+$", "Mesothelial", colnames(output_ref))
+column_names <- c(colnames(output_ref))
+
+remove.trailing.numbers <- function(column_name) { gsub("\\.\\d+$", "", column_name)}
+
+new_column_names <- sapply(column_names, remove.trailing.numbers)
+print(new_column_names)
+colnames(output_ref) <- new_column_names
+output_ref[1:5, 1:5]
+```
+
+```{r}
+
+colnames(output_ref) <- sub("\\..*", "", colnames(output_ref))
+output_ref[1:5, 1:5]
+```
+
+```{r}
+write.table(output_ref, "/home/mchopra/Documents/PhD-Year1/deconvolution/Deconvolution_results/Sc_reference/output_ref.txt", sep = "\t", quote = FALSE, row.names = FALSE)
 ```
 
 How does the output_ref.txt looks like - tab delimited file- 
