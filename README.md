@@ -3,6 +3,8 @@
 STEP1:
 Get the .hdf5 (anndata file - one of single cell file format) file from existing single cell study 
 https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE165824
+
+NOTE: MAKE SURE THAT YOU ARE CONSIDERING THE CORRECT SINGLE-CELL STUDY AS IT WILL BE THE REFERENCE
   
 #load libraries
 ```{r}
