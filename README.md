@@ -92,7 +92,7 @@ colnames(mtrx)
 ```
 
 ```{r}
-write.csv(mtrx, "mtrx.csv", quote = FALSE, sep = "\t", quote = FALSE)
+write.csv(mtrx, "mtrx.csv", quote = FALSE, sep = "\t")
 ```
 
 ```{r}
