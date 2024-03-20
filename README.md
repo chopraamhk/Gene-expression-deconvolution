@@ -144,6 +144,10 @@ RP11-34P13.7	0	0	0	0
 ```
 How does the .txt looks like tab delimited file- 
 ```
+ head -n 5 cpm_GTEx_aorta.csv | cut -d $'\t' -f 1-5
+```
+
+```
 Genes	GTEX-111YS	GTEX-1122O	GTEX-1128S	GTEX-117XS
 DDX11L1	0	0	0	0
 WASH7P	3.652	3.402	7.733	3.057
