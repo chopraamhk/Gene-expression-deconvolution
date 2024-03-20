@@ -35,7 +35,7 @@ Convert("GSE165824_ascending_descending_human_aorta_v1.h5ad", dest = "h5seurat",
 STEP2: Load h5Seurat file into a Seurat Object
 ```{r}
 #file
-seurat_anndata <- LoadH5Seurat("GSE165824_ascending_descending_human_aorta_v1.h5seurat")
+seurat_anndata <- LoadH5Seurat("GSE165824_ascending_descending_human_aorta_v1.h5seurat")docker pull cibersortx/fractions
 #file@assays@data$X
 ```
 
@@ -156,7 +156,7 @@ MIR1302-2HG	0	0	0.0659	0
 ```
 #Pull docker image 
 ```
-docker pull cibersortx/fractions
+sudo docker pull cibersortx/fractions
 ```
 
 #Running cibersortx
