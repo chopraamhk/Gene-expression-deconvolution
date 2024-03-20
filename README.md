@@ -144,7 +144,7 @@ RP11-34P13.7	0	0	0	0
 ```
 How does the .txt looks like tab delimited file- 
 ```
- head -n 5 cpm_GTEx_aorta.csv | cut -d $'\t' -f 1-5
+ head -n 5 file.csv | cut -d $'\t' -f 1-5
 ```
 
 ```
@@ -161,5 +161,5 @@ docker pull cibersortx/fractions
 
 #Running cibersortx
 ```
-sudo docker run -v /home/mchopra/Documents/PhD-Year1/deconvolution/Deconvolution_results/results:/src/data -v /home/mchopra/Documents/PhD-Year1/deconvolution/Deconvolution_results/results:/src/outdir cibersortx/fractions --username <registered_email> --token <token from website> --single_cell TRUE --refsample output_ref.txt --mixture gtex_aorta.txt --perm 100
+sudo docker run -v /home/mchopra/Documents/PhD-Year1/deconvolution/Deconvolution_results/results:/src/data -v /home/mchopra/Documents/PhD-Year1/deconvolution/Deconvolution_results/results:/src/outdir cibersortx/fractions --username <registered_email> --token <token from website> --single_cell TRUE --refsample output_ref.txt --mixture gtex_aorta.txt --perm 100 --batchSmode TRUE --fractions 
 ```
