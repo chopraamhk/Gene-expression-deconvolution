@@ -1,0 +1,115 @@
+```{r}
+library(biomaRt)
+library(immunedeconv)
+library(corrplot)
+library(forcats)
+library(stringr)
+library(here)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(RColorBrewer)
+library(CePa)
+library(ensembldb) ##also downloaded package EnsDb.Hsapiens.v86
+library(gridExtra)
+```
+
+```{r}
+setwd("/home/mchopra/Documents/PhD-Year1/deconvolution")
+```
+
+```{r}
+annotate_genes <- function(df){
+
+    df$hgnc_symbol <- df$gene
+    mart <- useMart(biomart = "ensembl", dataset = "hsapiens_gene_ensembl") #, host="uswest.ensembl.org")
+    info <- getBM(attributes=c("hgnc_symbol",
+                               "ensembl_gene_id_version",
+                               "chromosome_name",
+                               "start_position",
+                               "end_position",
+                               "strand",
+                               "entrezgene_description"),
+                  filters = c("hgnc_symbol"),
+                  values = df$gene,
+                  mart = mart,
+                  useCache=FALSE)
+
+    tmp <- merge(df, info, by="hgnc_symbol")
+    tmp$strand <- gsub("-1", "-", tmp$strand)
+    tmp$strand <- gsub("1", "+", tmp$strand)
+    tmp <- tmp[!grepl("CHR", tmp$chromosome_name),]
+
+    return(tmp)
+
+}
+
+convert_ensg_version_to_hgnc_df_rownames <- funct\tion(df, ensdb = EnsDb.Hsapiens.v86){
+  library(AnnotationDbi)
+  library(ensembldb)
+  library(EnsDb.Hsapiens.v86)
+  genes_base <- str_split_fixed(string = rownames(df), pattern = "\\.", n = 2)[,1]
+  newnames_original <- suppressWarnings(mapIds(EnsDb.Hsapiens.v86,
+    keys = genes_base,
+    column = 'SYMBOL',
+    keytype = 'GENEID'))
+
+# keep ensg version of newnames is na or is duplicated
+newnames <- ifelse(is.na(newnames_original) | duplicated(newnames_original),
+    rownames(df), newnames_original)
+rownames(df) <- newnames
+return(df)
+}
+```
+
+
+```{r}
+gct_data <- read.table("/home/mchopra/Documents/PhD-Year1/deconvolution/gtex_files/gene_tpm_2017-06-05_v8_artery_aorta.gct/gene_tpm_artery_aorta.gct", header = TRUE, sep = "\t", skip = 2, stringsAsFactors = FALSE)
+```
+
+```{r}
+gct_data
+```
+
+```{r}
+colnames(gct_data) <- gsub("\\.", "-", colnames(gct_data))
+colnames(gct_data) <- gsub("GTE", "GTEX", colnames(gct_data))
+cols <- colnames(gct_data)[3:ncol(gct_data)]
+test <- str_split_fixed(cols, "-", n = 5)[,1:2]
+test <- paste("GTEX", str_split_fixed(cols, "-", n = 5)[,2], sep = "-")
+test
+```
+
+```{r}
+colnames(gct_data)[3:ncol(gct_data)] <- test
+```
+
+
+```{r}
+gct_data[1:5, 1:6]
+```
+```{r}
+colnames(gct_data)[3] <- "gene_name"
+colnames(gct_data)[2] <- "gene_id"
+```
+
+```{r}
+gct_data <- gct_data[,-1] ##to delete column 1
+gct_data
+```
+
+```{r}
+gct_hgnc <- convert_ensg_version_to_hgnc_df_rownames(gct_data)
+```
+
+```{r}
+gct_hgnc
+```
+
+```{r}
+gct_hgnc_not_duplicated <- gct_hgnc[!duplicated(gct_hgnc$gene_name),]
+gct_hgnc_not_duplicated_hgnc_col <- subset(gct_hgnc_not_duplicated, select = -c(gene_id) )
+rownames(gct_hgnc_not_duplicated) <- gct_hgnc_not_duplicated$gene_name
+gct_hgnc_not_duplicated <- subset(gct_hgnc_not_duplicated, select = -c(gene_name, gene_id) )
+gct_hgnc_not_duplicated
+```
