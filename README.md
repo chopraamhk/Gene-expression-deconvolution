@@ -163,3 +163,11 @@ sudo docker pull cibersortx/fractions
 ```
 sudo docker run -v /home/mchopra/Documents/PhD-Year1/deconvolution/Deconvolution_results/results:/src/data -v /home/mchopra/Documents/PhD-Year1/deconvolution/Deconvolution_results/results:/src/outdir cibersortx/fractions --username <registered_email> --token <token from website> --single_cell TRUE --refsample output_ref.txt --mixture gtex_aorta.txt --perm 100 --rmbatchSmode TRUE --fraction 0
 ```
+
+I have used --rmbatchSmode TRUE as i am using single cell signature matrix as reference. 
+--rmbatchBmode TRUE can be used if microarray data is being used. 
+or 
+you can try running without s/b batch to see the results. 
+
+If memory issue arises, then use -m flag by specifying memory as well. 
+eg., docker run -m 28g 
