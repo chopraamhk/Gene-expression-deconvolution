@@ -3,9 +3,10 @@ https://open.bioqueue.org/home/knowledge/showKnowledge/sig/cibersortx-fractions#
 
 STEP1:
 Get the .hdf5 (anndata file - one of single cell file format) file from existing single cell study 
-https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE165824
+For example, I am using data from accession ID: GSE165824
 
-NOTE: MAKE SURE THAT YOU ARE CONSIDERING THE CORRECT SINGLE-CELL STUDY AS IT WILL BE THE REFERENCE
+Dealing with single-cell files could be difficult as different files could be uploaded in GEO. 
+NOTE: MAKE SURE THAT YOU ARE CONSIDERING THE CORRECT SINGLE-CELL STUDY, AS IT WILL BE THE REFERENCE
   
 #load libraries
 ```{r}
@@ -15,7 +16,7 @@ library(SeuratDisk)
 library(tidyverse) #to manipulate the data
 #library(HDF5Array)
 #library(BiocManager)
-#library(zellkonverter) #zellKonverter is a bioc package that can do the job as well
+#library(zellkonverter) #zellKonverter is a bioc package that can do the job as well instead of Seurat
 ```
 
 #setwd
