@@ -1,0 +1,22 @@
+Update Package Index:
+sudo apt update
+
+Install Dependencies
+sudo apt install apt-transport-https ca-certificates curl software-properties-common
+
+Add Docker’s Official GPG Key: This ensures the integrity of the software you're installing:
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+
+Add Docker Repository:
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+
+sudo apt update
+
+Install docker
+sudo apt install docker-ce
+
+Verify docker installation
+sudo docker run hello-world
+
+Manage Docker as a Non-Root User (Optional): 
+sudo usermod -aG docker your_username
